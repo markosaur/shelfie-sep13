@@ -22,5 +22,13 @@ module.exports = {
             res.status(500).send("whoops something is not quite right");
             console.log(err);
           });
+      },
+      delete: (req, res) => {
+        const db = req.app.get("db");
+        const { id } = req.params;
+        db.delete_product([id]).then(result => {
+          res.status(200).send(result);
+      
+        });
       }
 };
