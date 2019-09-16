@@ -12,6 +12,7 @@ app.use(express.json())
 
 //endpoints
 app.get('/api/inventory',ctrl.getInventory)
+app.post('/api/inventory', ctrl.create)
 
 massive(CONNECTION_STRING).then(databaseConnection => {
     app.set('db', databaseConnection)
