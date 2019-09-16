@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Axios from 'axios';
 
 export default class Form extends Component {
     constructor(){
@@ -11,21 +12,21 @@ export default class Form extends Component {
         }
     }
     
-    handleName = (value)=>{
+    handleName = (name)=>{
         this.setState({
-            name: value
+            name: name
         })
     }
 
-    handlePrice = (value)=>{
+    handlePrice = (price)=>{
         this.setState({
-            price: value
+            price: price
         })
     }
     
-    handleImg = (value)=>{
+    handleImg = (img)=>{
         this.setState({
-            img: value
+            img: img
         })
     }
     handleCancel = () => {
@@ -33,6 +34,21 @@ export default class Form extends Component {
             name: '',
             price: 0,
             img: ''
+        })
+    }
+
+    handleNewProduct = ()=>{
+        const {name, price, img} = this.state
+        const newProduct = {
+            name,
+            price,
+            img
+        }
+        Axios.post('api/inventory', newProduct)
+        .then(res=>{
+            this.props.getInventory(res.data)
+        }).catch(error => {
+            console.log(error)
         })
     }
     
@@ -44,7 +60,7 @@ export default class Form extends Component {
                 <input placeholder = 'Price' onChange={(event)=>this.handlePrice(event.target.value)} value={this.state.price}/>
                 <input placeholder= 'Image URL' onChange={(event)=> this.handleImg(event.target.value)} value={this.state.img}/>
                 <button onClick={this.handleCancel}>Cancel</button>
-                <button>Add Inventory</button>
+                <button onClick={this.handleNewProduct}>Add Inventory</button>
             </div>
         )
     }
