@@ -30,5 +30,14 @@ module.exports = {
           res.status(200).send(result);
       
         });
+      },
+
+      update: (req, res) => {
+        const db =req.app.get("db");
+        const{name, price, img} = req.body
+        const{ id } = req.params;
+        db.update_product(id, name, price, img).then(result=> {
+          res.status(200).send(result)
+        })
       }
 };

@@ -14,9 +14,10 @@ app.use(express.json())
 app.get('/api/inventory',ctrl.getInventory)
 app.post('/api/inventory', ctrl.create)
 app.delete('/api/inventory/:id', ctrl.delete)
+app.put('/api/inventory/:id', ctrl.update)
 
 massive(CONNECTION_STRING).then(databaseConnection => {
     app.set('db', databaseConnection)
-app.listen(SERVER_PORT, () => console.log(`${SERVER_PORT} ducks marching in the street`))
+    app.listen(SERVER_PORT, () => console.log(`${SERVER_PORT} ducks marching in the street`))
 
 })
