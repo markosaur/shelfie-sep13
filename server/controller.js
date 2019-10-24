@@ -1,16 +1,30 @@
 module.exports = {
     getInventory: (req, res) => {
         const db = req.app.get("db");
-    
         db.getInventory()
           .then(result => {
             res.status(200).send(result);
+            console.log(result)
           })
           .catch(err => {
             res.status(500).send("whoops something is not quite right");
             console.log(err);
           });
       },
+    getProduct: (req, res) => {
+        const db = req.app.get("db");
+        const {id} = req.params
+        db.get_product(+id)
+        .then(result => {
+          res.status(200).send(result);
+        })
+        .catch(err => {
+          res.status(500).send("whoops something went wrong, please try again later");
+          console.log(err);
+          
+        })
+      },
+
       create: (req, res) => {
         const db = req.app.get("db");
         const { name, price, img } = req.body;

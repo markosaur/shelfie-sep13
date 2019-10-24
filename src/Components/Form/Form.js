@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+import Header from '../Header/Header';
 
 export default class Form extends Component {
     constructor(){
@@ -10,23 +12,39 @@ export default class Form extends Component {
             price: 0,
             img: '',
             id: null,
-            edit: false
+            edit: false,
+            // prod: []
         }
     }
 
-    async componentDidUpdate (prevProps){
-        const {name, price, img, id} = this.props.selected
-        if(prevProps.selected.id !== this.props.selected.id){
-                this.setState({
-                    name,
-                    price,
-                    img,
-                    edit: true,
-                    id
-                })
-        }
-       
+    async componentDidMount (){
+        const product = await axios.get(`/api/inventory/${this.props.match.params.id}`)
+        console.log(this.props.match.params.id)
+        console.log(product.data)
+        const prod = product.data[0]
+        this.setState({
+            name: prod.name,
+            price: prod.price,
+            img: prod.img,
+            id: prod.id,
+            edit: true
+            
+        })
     }
+
+    // async componentDidUpdate (prevProps){
+    //     const {name, price, img, id} = this.props.selected
+    //     if(prevProps.selected.id !== this.props.selected.id){
+    //             this.setState({
+    //                 name,
+    //                 price,
+    //                 img,
+    //                 edit: true,
+    //                 id
+    //             })
+    //     }
+       
+    // }
     handleEdit = ()=>{
         const {name, price, img, id} = this.state
         const selected = {
@@ -89,22 +107,25 @@ export default class Form extends Component {
     
     render() {
         console.log(this.state)
-
         const edit = this.state.edit;
         let button;
 
         if(edit) {
-            button = <button onClick = {this.handleEdit}>Edit</button>
+            button = <Link to = '/'><button onClick = {this.handleEdit}>Edit</button></Link>
         } else {
             button = <button onClick= {this.handleNewProduct}> Add Inventory </button>
         }
 
         return (
             <div>
+                <Header/>
+                <div>
+                    <img src={this.state.img}/>
+                </div>
                 <input placeholder = 'Name' onChange={(event)=>this.handleName(event.target.value)} value={this.state.name}/>
                 <input placeholder = 'Price' onChange={(event)=>this.handlePrice(event.target.value)} value={this.state.price}/>
                 <input placeholder= 'Image URL' onChange={(event)=> this.handleImg(event.target.value)} value={this.state.img}/>
-                <button onClick={this.handleCancel}>Cancel</button>
+                <Link to='/'><button onClick={this.handleCancel}>Cancel</button></Link>
                 {/* <button onClick={this.handleNewProduct}>Add Inventory</button> */}
                 {button}
             </div>

@@ -5,7 +5,8 @@ export default class Header extends Component {
         return (
             <div>
                 Header
-                
+                <button>Dashboard</button>
+                <button>Add Inventory</button>
             </div>
         )
     }
