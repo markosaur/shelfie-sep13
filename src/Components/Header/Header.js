@@ -1,12 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
     render() {
         return (
             <div>
                 Header
-                <button>Dashboard</button>
-                <button>Add Inventory</button>
+                <Link to = '/'>
+                    <button>Dashboard</button>
+                </Link>
+                <Link to = '/forms'>
+                    <button>Add Inventory</button>
+                </Link>
             </div>
         )
     }

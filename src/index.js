@@ -11,7 +11,7 @@ ReactDOM.render(<HashRouter>
     {/* <App /> */}
     <Switch>
         <Route exact path= '/' component={App} />
-        {/* <Route path = '/form' component={Form} /> */}
+        <Route path = '/forms' component={Form} />
         <Route path = '/form/:id' component={Form} />
     </Switch>
 </HashRouter>, document.getElementById('root'));

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import Header from '../Header/Header';
 
 export default class Form extends Component {
@@ -111,9 +111,15 @@ export default class Form extends Component {
         let button;
 
         if(edit) {
-            button = <Link to = '/'><button onClick = {this.handleEdit}>Edit</button></Link>
+            button = 
+            <Link to = '/'>
+                <button onClick = {this.handleEdit}>Edit</button>
+            </Link>
         } else {
-            button = <button onClick= {this.handleNewProduct}> Add Inventory </button>
+            button = 
+            <Link to = '/'>
+                <button onClick= {this.handleNewProduct}> Add Inventory </button>
+            </Link>
         }
 
         return (
